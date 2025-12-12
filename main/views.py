@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+from main.models import Voting
+
+
+def votes_page(request):
+    context = {
+        "items": Voting.objects.all()
+    }
+    return render(request,"votes.html",context)
