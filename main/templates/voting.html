@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p> id: {{ voting.id }}</p>
+    <p> Название: {{ voting.title }}</p>
+    <p> Описание: {{ voting.description }} </p>
+        {% for option, votes in voting_options %}
+    <ul> {{ option.text }} - {{ votes }}</ul>
+        {% endfor %}
+</body>
+</html>
