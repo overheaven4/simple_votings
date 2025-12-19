@@ -26,7 +26,7 @@ blue = VotingOption.objects.create(voting=voting, text="Синий")
 green = VotingOption.objects.create(voting=voting, text="Зелёный")
 
 # Голоса
-Vote.objects.create(voting=voting, option=red, user=alice)
-Vote.objects.create(voting=voting, option=blue, user=bob)
+Vote.objects.create(option=red, user=alice)
+Vote.objects.create(option=blue, user=bob)
 
 print("Тестовые данные созданы!")
