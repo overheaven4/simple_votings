@@ -20,6 +20,8 @@ voting = Voting.objects.create(
     created_at=timezone.now()
 )
 
+
+
 # Варианты
 red = VotingOption.objects.create(voting=voting, text="Красный")
 blue = VotingOption.objects.create(voting=voting, text="Синий")
