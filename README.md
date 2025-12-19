@@ -24,5 +24,6 @@
 7. Синхронизировать структуру базы данных с моделями: 
    ```bash
    python manage.py migrate
+   python create_db.py
    ```
    
