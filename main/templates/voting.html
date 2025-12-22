@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ voting.title }}</title>
 </head>
-<body>
-    <p> id: {{ voting.id }}</p>
-    <p> Название: {{ voting.title }}</p>
-    <p> Описание: {{ voting.description }} </p>
-        {% for option, votes in voting_options %}
-    <ul> {{ option.text }} - {{ votes }}</ul>
-        {% endfor %}
-</body>
+<form method="post">
+    <body>
+    {% csrf_token %}
+    <p> {{ voting.title }} </p>
+    <p> {{ voting.description }} </p>
+
+    {% for radio in form.option %}
+    <p>
+        {{ radio.tag }}
+        {{ radio.choice_label }}
+    </p>
+    {% endfor %}
+    <button type="submit" value="Голосовать">
+    </body>
+</form>
 </html>
