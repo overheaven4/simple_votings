@@ -43,3 +43,11 @@ def voting(request, voting_id):
     return render(request, template_name, context)
 
 
+
+def index_view(request):
+
+    # form = First_pageForm(request.POST or None)
+    # if request.method == "POST" and form.is_valid():
+    #     # your calculation logic here
+    #     pass
+    return render(request, "login_register.html", {})
