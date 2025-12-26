@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Войти">
+    </form>
+</body>
+</html>
+{{ request.user }}
+<a href="/login/"> <button>  Войти </button> </a>
+<a href="/logout/"> <button> Выйти </button> </a>

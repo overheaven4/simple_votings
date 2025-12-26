@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from main.models import Voting, VotingOption, Vote
 from django import forms
 from main.forms.forms import VotingForm
+import datetime
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 
 
 def voting(request, voting_id):
@@ -42,6 +46,11 @@ def voting(request, voting_id):
         context['form'] = form
     return render(request, template_name, context)
 
+def index_page(request):
+    context = {
+       print("Войдите в аккаунт")
+    }
+    return render(request, "index.html", context)
 
 
 def index_view(request):
@@ -51,3 +60,19 @@ def index_view(request):
     #     # your calculation logic here
     #     pass
     return render(request, "login_register.html", {})
+def my_view(request):
+    username = request.POST["username"]
+    password = request.POST["password"]
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return login("auth")
+
+    else:
+        # Return an 'invalid login' error message.
+        return render(request,"login.html")
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
