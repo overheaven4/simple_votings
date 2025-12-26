@@ -4,6 +4,7 @@ from main.models import Voting, VotingOption, Vote
 from django import forms
 from main.forms.forms import VotingForm
 
+
 def voting(request, voting_id):
     voting = get_object_or_404(Voting, id=voting_id)
     context = {

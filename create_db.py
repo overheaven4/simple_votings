@@ -20,10 +20,20 @@ voting = Voting.objects.create(
     created_at=timezone.now()
 )
 
+voting2 = Voting.objects.create(
+    title="Любимый сериал",
+    description="Выберите свой любимый цвет",
+    creator=alice,
+    created_at=timezone.now()
+)
+
 # Варианты
 red = VotingOption.objects.create(voting=voting, text="Красный")
 blue = VotingOption.objects.create(voting=voting, text="Синий")
 green = VotingOption.objects.create(voting=voting, text="Зелёный")
+
+VotingOption.objects.create(voting=voting2, text="ОСД")
+VotingOption.objects.create(voting=voting2, text="Пацаны")
 
 # Голоса
 Vote.objects.create(option=red, user=alice)
