@@ -15,6 +15,8 @@ class VotingOption(models.Model):
     """Модель для хранения информации о варианте голосования"""
     voting = models.ForeignKey(to=Voting, on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
+    def __str__(self):
+        return self.text
 
 
 class Vote(models.Model):

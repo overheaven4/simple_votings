@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ voting.title }}</title>
+</head>
+<form method="post">
+    <body>
+    {% csrf_token %}
+    <p> {{ voting.title }} </p>
+    <p> {{ voting.description }} </p>
+
+    {% for radio in form.option %}
+    <p>
+        {{ radio.tag }}
+        {{ radio.choice_label }}
+    </p>
+    {% endfor %}
+    <button type="submit" >Голосовать</button>
+    </body>
+</form>
+</html>
