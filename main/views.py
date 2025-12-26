@@ -45,12 +45,12 @@ def voting(request, voting_id):
             form = VotingForm(voting=voting)
         context['form'] = form
     return render(request, template_name, context)
-
-def index_page(request):
-    context = {
-       print("Войдите в аккаунт")
-    }
-    return render(request, "index.html", context)
+#
+# def index_page(request):
+#     context = {
+#        print("Войдите в аккаунт")
+#     }
+#     return render(request, "login_register.html", context)
 
 
 def index_view(request):
