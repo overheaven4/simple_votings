@@ -76,3 +76,20 @@ from django.contrib.auth import logout
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    context = {
+        'user':user
+    }
+    vote_list = Vote.objects.filter(user=user)
+    if not vote_list:
+        context['is_active'] = False
+    else:
+        context['is_active'] = True
+        option_list = []
+        for vote in vote_list:
+            option_list.append(vote.option)
+        context['options'] = option_list
+
+    return render(request, "profile.html", context)

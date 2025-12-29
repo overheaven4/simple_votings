@@ -2,7 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>profile: {{ user.username }}</title>
+    <p>name: {{ user.username }}</p>
+    <p>join date: {{ user.date_joined }}</p>
+    <p>Voting activity:</p>
+    {% if is_active %}
+        {% for option in options %}
+    <ul>
+        <li> {{ option.voting.title }} - {{ option.text }} </li>
+    </ul>
+        {% endfor %}
+    {% else %}
+        <p>the user hasn't voted before :(</p>
+    {% endif %}
 </head>
 <body>
 
