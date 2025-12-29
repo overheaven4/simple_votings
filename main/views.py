@@ -78,18 +78,23 @@ def logout_view(request):
     return redirect('/')
 
 def profile(request, username):
-    user = get_object_or_404(User, username=username)
-    context = {
-        'user':user
-    }
-    vote_list = Vote.objects.filter(user=user)
-    if not vote_list:
-        context['is_active'] = False
+    if request.method == "POST":
+        return redirect(f'/profile/{username}/edit')
     else:
-        context['is_active'] = True
+        user = get_object_or_404(User, username=username)
+        context = {
+            'user':user,
+        }
+        vote_list = Vote.objects.filter(user=user)
         option_list = []
         for vote in vote_list:
             option_list.append(vote.option)
         context['options'] = option_list
 
-    return render(request, "profile.html", context)
+        return render(request, "profile.html", context)
+def profile_edit(request, username):
+    if request.user.username == username or request.user.is_superuser:
+        context = {}
+        return render(request, "profile_edit.html", context)
+    else:
+        return render(request, "error.html", {'error_text':'access is denied'})
