@@ -1,0 +1,16 @@
+
+
+    <a href="{{ url_for('create_poll') }}">Создать новое голосование</a>
+    
+    <h2>Активные голосования</h2>
+    {% for poll in polls %}
+        <div class="poll">
+            <h3>{{ poll.title }}</h3>
+            <p>{{ poll.question }}</p>
+            <a href="{{ url_for('vote', poll_id=poll.id) }}">Проголосовать</a>
+            |
+            <a href="{{ url_for('results', poll_id=poll.id) }}">Результаты</a>
+        </div>
+    {% else %}
+        <p>Нет активных голосований</p>
+    {% endfor %}

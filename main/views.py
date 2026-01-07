@@ -55,6 +55,9 @@ def voting(request, voting_id):
 
 def index_view(request):
 
+# Create your views here.
+def new_vote_page(request):
+    return render(request,"create.html",{})
     # form = First_pageForm(request.POST or None)
     # if request.method == "POST" and form.is_valid():
     #     # your calculation logic here
