@@ -45,12 +45,12 @@ def voting(request, voting_id):
             form = VotingForm(voting=voting)
         context['form'] = form
     return render(request, template_name, context)
-#
-# def index_page(request):
-#     context = {
-#        print("Войдите в аккаунт")
-#     }
-#     return render(request, "login_register.html", context)
+
+ def index_page(request):
+     context = {
+        print("Войдите в аккаунт")
+     }
+     return render(request, "login_register.html", context)
 
 
 def index_view(request):
@@ -58,10 +58,6 @@ def index_view(request):
 # Create your views here.
 def new_vote_page(request):
     return render(request,"create.html",{})
-    # form = First_pageForm(request.POST or None)
-    # if request.method == "POST" and form.is_valid():
-    #     # your calculation logic here
-    #     pass
     return render(request, "login_register.html", {})
 def my_view(request):
     username = request.POST["username"]
