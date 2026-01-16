@@ -46,7 +46,7 @@ def voting(request, voting_id):
         context['form'] = form
     return render(request, template_name, context)
 
- def index_page(request):
+def index_page(request):
      context = {
         print("Войдите в аккаунт")
      }
@@ -54,6 +54,7 @@ def voting(request, voting_id):
 
 
 def index_view(request):
+    pass
 
 # Create your views here.
 def new_vote_page(request):
