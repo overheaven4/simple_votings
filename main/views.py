@@ -45,12 +45,12 @@ def voting(request, voting_id):
             form = VotingForm(voting=voting)
         context['form'] = form
     return render(request, template_name, context)
-
-def index_page(request):
-     context = {
-        print("Войдите в аккаунт")
-     }
-     return render(request, "login_register.html", context)
+#
+# def index_page(request):
+#     context = {
+#        print("Войдите в аккаунт")
+#     }
+#     return render(request, "login_register.html", context)
 
 
 def index_view(request):
@@ -59,7 +59,7 @@ def index_view(request):
 # Create your views here.
 def new_vote_page(request):
     return render(request,"create.html",{})
-    return render(request, "login_register.html", {})
+
 def my_view(request):
     username = request.POST["username"]
     password = request.POST["password"]
@@ -81,3 +81,25 @@ def logout_view(request):
 
 def registration_page(request):
     return render(request,"reg.html", {})
+
+def profile(request, username):
+    if request.method == "POST":
+        return redirect(f'/profile/{username}/edit')
+    else:
+        user = get_object_or_404(User, username=username)
+        context = {
+            'user':user,
+        }
+        vote_list = Vote.objects.filter(user=user)
+        option_list = []
+        for vote in vote_list:
+            option_list.append(vote.option)
+        context['options'] = option_list
+
+        return render(request, "profile.html", context)
+def profile_edit(request, username):
+    if request.user.username == username or request.user.is_superuser:
+        context = {}
+        return render(request, "profile_edit.html", context)
+    else:
+        return render(request, "error.html", {'error_text':'access is denied'})
