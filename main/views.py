@@ -133,3 +133,10 @@ def new_vote_page(request):
         return redirect(f'/voting/{new_voting.id}')
 
     return render(request, "create.html", {})
+
+def votes_page(request):
+    context = {
+        "items": Voting.objects.all()
+
+    }
+    return render(request,"votes.html",context)

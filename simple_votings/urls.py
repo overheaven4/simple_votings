@@ -16,16 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import  logout_view, voting, index_view, profile, profile_edit, registration_page
+from main.views import logout_view, voting, index_view, profile, profile_edit, registration_page
 from main.views import my_view
 from django.contrib.auth import views as auth_views
 
 from main.views import new_vote_page
+from main.views import votes_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", votes_page),
     path('voting/<int:voting_id>', voting),
-    path("", index_view),
     path("auth/", my_view),
     path('login/', auth_views.LoginView.as_view()),
     path('logout/', logout_view),
