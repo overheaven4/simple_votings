@@ -9,68 +9,44 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 def voting(request, voting_id):
-    voting = get_object_or_404(Voting, id=voting_id)
-    context = {
-        "voting": voting,
-    }
-    options_list = VotingOption.objects.filter(voting=voting)
-    is_voted = False
-    for option in options_list:
-        vote_list = Vote.objects.filter(option=option)
-        for vote in vote_list:
-            if vote.user == request.user:
-                is_voted = True
-                context['given_vote'] = vote.option
-                break
-        if is_voted: break
-    if is_voted:
-        template_name = "voting_result.html"
-        options = []
-        for i in range(len(options_list)):
-            votes_count = Vote.objects.filter(option=options_list[i]).count()
-            options.append((options_list[i], votes_count))
-        context['options_list'] = options
-
-    else:
-        template_name = "voting.html"
-        if request.method == "POST":
-            form = VotingForm(request.POST, voting=voting)
-            if form.is_valid():
-                option = form.cleaned_data['option']
-                Vote.objects.create(user=request.user, option=option)
-                return redirect(f'/voting/{voting_id}')
+    if request.user.is_authenticated:
+        voting = get_object_or_404(Voting, id=voting_id)
+        context = {
+            "voting": voting,
+        }
+        options_list = VotingOption.objects.filter(voting=voting)
+        is_voted = False
+        for option in options_list:
+            vote_list = Vote.objects.filter(option=option)
+            for vote in vote_list:
+                if vote.user == request.user:
+                    is_voted = True
+                    context['given_vote'] = vote.option
+                    break
+            if is_voted: break
+        if is_voted:
+            template_name = "voting_result.html"
+            options = []
+            for i in range(len(options_list)):
+                votes_count = Vote.objects.filter(option=options_list[i]).count()
+                options.append((options_list[i], votes_count))
+            context['options_list'] = options
 
         else:
-            form = VotingForm(voting=voting)
-        context['form'] = form
-    return render(request, template_name, context)
-#
-# def index_page(request):
-#     context = {
-#        print("Войдите в аккаунт")
-#     }
-#     return render(request, "login_register.html", context)
+            template_name = "voting.html"
+            if request.method == "POST":
+                form = VotingForm(request.POST, voting=voting)
+                if form.is_valid():
+                    option = form.cleaned_data['option']
+                    Vote.objects.create(user=request.user, option=option)
+                    return redirect(f'/voting/{voting_id}')
 
-
-def index_view(request):
-    pass
-
-
-
-
-
-
-def my_view(request):
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return login("auth")
-
+            else:
+                form = VotingForm(voting=voting)
+            context['form'] = form
+        return render(request, template_name, context)
     else:
-        # Return an 'invalid login' error message.
-        return render(request,"login.html")
+        return redirect("/login")
 
 def logout_view(request):
     logout(request)
@@ -84,8 +60,10 @@ def profile(request, username):
         return redirect(f'/profile/{username}/edit')
     else:
         user = get_object_or_404(User, username=username)
+        date = user.date_joined.strftime("%d.%m.%Y")
         context = {
             'user':user,
+            'date':date
         }
         vote_list = Vote.objects.filter(user=user)
         option_list = []
@@ -137,6 +115,5 @@ def new_vote_page(request):
 def votes_page(request):
     context = {
         "items": Voting.objects.all()
-
     }
     return render(request,"votes.html",context)

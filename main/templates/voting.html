@@ -69,4 +69,11 @@
     <button type="submit" >Голосовать</button>
     </body>
 </form>
+{% if request.user.is_authenticated %}
+    <a href="/profile/{{ request.user.username }}">{{ request.user }}</a>
+    <a href="/logout/"> <button> Выйти </button> </a>
+{% else %}
+    <a href="/login/"> <button>  Войти </button> </a>
+{% endif %}
+    <a href="/"> <button> Главная страница </button> </a>
 </html>
