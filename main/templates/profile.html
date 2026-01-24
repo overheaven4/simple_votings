@@ -59,7 +59,7 @@
     <p>Активность:</p>
         {% for option in options %}
     <ul>
-        <li> {{ option.voting.title }} - {{ option.text }} </li>
+        <li> <a href="/voting/{{ option.voting.id }}"> {{ option.voting.title }} </a> - {{ option.text }} </li>
     </ul>
         {% empty %}
     <p>Пользователь еще не принимал участия в голосованиях :(</p>
