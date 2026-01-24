@@ -130,6 +130,6 @@ def new_vote_page(request):
                 )
 
         messages.success(request, 'Голосование создано успешно!')
-        return render(request, "create.html", {})
+        return redirect(f'/voting/{new_voting.id}')
 
     return render(request, "create.html", {})

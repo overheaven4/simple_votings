@@ -1,5 +1,56 @@
+<head>
+    <title>Новое голосование</title>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+        }
 
+        h1 {
+            color: #333;
+        }
 
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option.selected {
+            background-color: #cce5ff;
+            border-color: #0066cc;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0052a3;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
     <h2>Создать новое голосование</h2>
     <form method="POST">
         {% csrf_token %}
@@ -9,7 +60,7 @@
         </div>
         <div style="margin: 15px 0;">
             <label>Вопрос:</label>
-            <textarea name="question" required style="width: 400px; height: 100px;"></textarea>
+            <textarea name="question" required style="width: 500px; height: 150px;"></textarea>
         </div>
         <h3>Варианты ответов:</h3>
 
@@ -23,4 +74,4 @@
 
         <button type="submit">Создать голосование</button>
     </form>
-
+</body>
