@@ -2,76 +2,103 @@
     <title>Новое голосование</title>
      <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Светло-фиолетовый градиент для мягкого вида */
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
         }
 
-        h1 {
-            color: #333;
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+        }
+
+        h2 {
+            color: #4a148c;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #6a1b9a;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1bee7;
+            border-radius: 8px;
+            box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #9c27b0;
         }
 
         .option {
             margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        .option:hover {
-            background-color: #f0f0f0;
-        }
-
-        .option.selected {
-            background-color: #cce5ff;
-            border-color: #0066cc;
+            padding: 15px;
+            background-color: #fcfaff;
+            border: 1px dashed #ce93d8;
+            border-radius: 8px;
         }
 
         button {
+            width: 100%;
             margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #0066cc;
+            padding: 12px;
+            background-color: #9c27b0;
             color: white;
             border: none;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #0052a3;
-        }
-
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
+            background-color: #7b1fa2;
         }
     </style>
 </head>
 <body>
-    <h2>Создать новое голосование</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <div>
-            <label>Заголовок:</label>
-            <input type="text" name="title" required style="width: 300px;">
-        </div>
-        <div style="margin: 15px 0;">
-            <label>Вопрос:</label>
-            <textarea name="question" required style="width: 500px; height: 150px;"></textarea>
-        </div>
-        <h3>Варианты ответов:</h3>
+    <div class="container">
+        <h2>Создать новое голосование</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div style="margin-bottom: 15px;">
+                <label>Заголовок:</label>
+                <input type="text" name="title" required placeholder="Введите название...">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Вопрос:</label>
+                <textarea name="question" required placeholder="О чем вы хотите спросить?" style="height: 100px; resize: vertical;"></textarea>
+            </div>
 
+            <label>Варианты ответов:</label>
             <div class="option">
-                <input type="text" name="option" >
+                <input type="text" name="option" placeholder="Вариант 1">
             </div>
 
             <div class="option">
-                <input type="text" name="option" >
+                <input type="text" name="option" placeholder="Вариант 2">
             </div>
 
-        <button type="submit">Создать голосование</button>
-    </form>
+            <button type="submit">Создать голосование</button>
+        </form>
+    </div>
 </body>
