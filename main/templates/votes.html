@@ -1,74 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Главная страница</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 20px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
             padding: 20px;
         }
 
-        h1 {
-            color: #333;
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
         }
 
-        .option {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            cursor: pointer;
+        h2 {
+            color: #4a148c;
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 2px solid #f3e5f5;
+            padding-bottom: 10px;
         }
 
-        .option:hover {
-            background-color: #f0f0f0;
+        /* Список голосований */
+        ul {
+            list-style: none;
+            padding: 0;
         }
 
-        .option.selected {
-            background-color: #cce5ff;
-            border-color: #0066cc;
+        li {
+            background-color: #fcfaff;
+            margin: 8px 0;
+            padding: 12px;
+            border: 1px solid #e1bee7;
+            border-radius: 8px;
+            transition: transform 0.2s;
         }
 
+        li:hover {
+            transform: translateX(5px);
+            border-color: #9c27b0;
+        }
+
+        li a {
+            color: #9c27b0;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+
+        /* Кнопки */
         button {
-            margin-top: 20px;
             padding: 10px 20px;
-            background-color: #0066cc;
+            background-color: #6a1b9a;
             color: white;
             border: none;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #0052a3;
+            background-color: #4a148c;
         }
 
-        #result {
+        /* Блок навигации */
+        .nav-links {
             margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <ul>
-        {% for item in items %}
-            <li>
-                <a href="voting/{{ item.id }}">{{ item.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+
+    <!-- ЕДИНСТВЕННАЯ карточка с контентом -->
+    <div class="container">
+        <h2>Доступные голосования</h2>
+
+        <ul>
+            {% for item in items %}
+                <li>
+                    <a href="voting/{{ item.id }}">{{ item.title }}</a>
+                </li>
+            {% empty %}
+                <p style="text-align: center; color: #888;">Голосований пока нет.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Кнопки входа/выхода под карточкой -->
+    <div class="nav-links">
+        {% if request.user.is_authenticated %}
+            <a href="/profile/{{ request.user.username }}">
+                <button>Профиль: {{ request.user }}</button>
+            </a>
+            <a href="/logout/">
+                <button style="background-color: #555;">Выйти</button>
+            </a>
+        {% else %}
+            <a href="/login/">
+                <button>Войти</button>
+            </a>
+        {% endif %}
+    </div>
 
 </body>
-
-{% if request.user.is_authenticated %}
-    <a href="/profile/{{ request.user.username }}">{{ request.user }}</a>
-    <a href="/logout/"> <button> Выйти </button> </a>
-{% else %}
-    <a href="/login/"> <button>  Войти </button> </a>
-{% endif %}
-
 </html>
