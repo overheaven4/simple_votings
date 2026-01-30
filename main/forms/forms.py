@@ -17,3 +17,7 @@ class VotingForm(forms.Form):
                 votes_count = Count('vote')
             )
             self.fields['option'].label_from_instance = lambda obj: f"{obj.text} ({obj.votes_count})"
+
+
+class RegForm(forms.Form):
+    pass

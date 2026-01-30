@@ -2,80 +2,94 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+        <style>
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8; /* Светлый пастельный голубой */
+            padding: 20px;
         }
-        .registration-card {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 400px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #5a7d9a; /* Приглушенный синий */
-            font-weight: 500;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d9e6;
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        input:focus {
-            border-color: #a2b9bc;
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
+        button {
+            padding: 10px 20px;
+            background-color: #6a1b9a;
+            color: white;
             border: none;
             border-radius: 8px;
-            background-color: #b2d8d8; /* Пастельная бирюза */
-            color: #4a6363;
-            font-weight: bold;
             cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
             transition: background-color 0.3s;
+            justify-content: center;
+            text-align: center;
+            margin-top: 10px;
         }
-        .btn-submit:hover {
-            background-color: #96c2c2;
+        .nav-links {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1bee7;
+            border-radius: 8px;
+            box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+            transition: border-color 0.3s;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #9c27b0;
+        }
+                label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #6a1b9a;
+        }
+        .uno{
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="registration-card">
-    <h3 style="text-align: center; color: #5a7d9a; margin-bottom: 25px;">Регистрация</h3>
-    <form>
-        <div class="form-group">
-            <label for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" placeholder="Введите имя">
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="uno">
+            <button type="submit">Регистрация</button>
         </div>
-        <div class="form-group">
-            <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" placeholder="Придумайте пароль">
-        </div>
-        <button type="submit" class="btn-submit">Зарегистрировать пользователя</button>
     </form>
 </div>
-
-
 </body>
+<div class="nav-links">
+        <a href="/"> <button>Главная страница</button> </a>
+</div>
 </html>

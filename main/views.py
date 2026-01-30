@@ -7,6 +7,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 def voting(request, voting_id):
     if request.user.is_authenticated:
@@ -53,7 +54,16 @@ def logout_view(request):
     return redirect('/')
 
 def registration_page(request):
-    return render(request,"reg.html", {})
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            return redirect('/login')
+    else:
+        form = UserCreationForm()
+
+    return render(request,"reg.html", {"form":form})
 
 def profile(request, username):
     if request.method == "POST":
